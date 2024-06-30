@@ -25,6 +25,18 @@ app.get("/api/hello", function (req, res) {
 });
 
 
+app.get("/api", function (req, res) {
+  const currentUnix = new Date().getTime();
+  const currenteUtc = new Date().toUTCString();
+  res.json({unix: currentUnix, "utc" :currenteUtc });
+});
+
+
+
+
+
+
+
 
 // Listen on port set in environment variable or default to 3000
 var listener = app.listen(process.env.PORT || 3000, function () {
