@@ -31,7 +31,24 @@ app.get("/api", function (req, res) {
   res.json({unix: currentUnix, "utc" :currenteUtc });
 });
 
+app.get("/api/:dateinput", function (req, res) {
+  const dateinput = req.params.dateinput
+  const unixPattern = /\d{5,}/
 
+  if (unixPattern.test(dateinput)){
+    const dateUnix = parseInt(dateinput)
+    res.json({unix: dateUnix, "utc" : new Date(dateUnix).toUTCString() });
+  } else{
+    const fdate = new Date(dateinput)
+    if (fdate.toString() === "Invalid Date") {
+      res.json({error: "Invalid Date"});
+    } else {
+      res.json({unix: fdate.getTime(), utc : fdate.toUTCString()});
+    }
+  }
+
+
+});
 
 
 
